@@ -18,7 +18,8 @@ window.SITE = {
   brand: "GROW 360",
 
   // Social and contact links (leave "" until you have them)
-  facebook:  "",   // e.g. "https://facebook.com/yourpage"
+  facebook:  "https://www.facebook.com/profile.php?id=61596358033116",
+  facebookName: "GROW 360",   // the name shown on the Facebook card instead of the link
   whatsapp:  "8801858182562",   // number with country code, digits only (880 = Bangladesh)
   email:     "grow360.contact@gmail.com",
 
@@ -47,6 +48,25 @@ window.SITE = {
 };
 </script>
 <!-- ===================================================================== -->
+<link rel="preload" as="audio" href="bg.mp3">
+<script>
+/* Background music: starts downloading immediately (before images, fonts and 3D library) and always tries to play */
+(function(){
+  var S=window.SITE; if(!S||!S.music) return;
+  var a=new Audio(S.music); a.loop=true; a.preload='auto';
+  a.volume=Math.max(0,Math.min(1,S.musicVolume==null?.35:S.musicVolume));
+  var started=false, timer;
+  var evs=['pointerdown','mousedown','mouseup','touchstart','touchend','click','keydown','pointermove','mousemove','wheel','scroll','touchmove'];
+  function done(){ started=true; evs.forEach(function(e){ removeEventListener(e,tryPlay,true); }); clearInterval(timer); }
+  function tryPlay(){ if(started) return; var p=a.play(); if(p&&p.then){ p.then(done).catch(function(){}); } }
+  evs.forEach(function(e){ addEventListener(e,tryPlay,{capture:true,passive:true}); });
+  timer=setInterval(tryPlay,400);
+  a.addEventListener('canplay',tryPlay); a.addEventListener('loadeddata',tryPlay);
+  document.addEventListener('DOMContentLoaded',tryPlay); addEventListener('load',tryPlay);
+  document.addEventListener('visibilitychange',function(){ if(document.hidden){ a.pause(); } else if(started){ a.play().catch(function(){}); } });
+  tryPlay();
+})();
+</script>
 
 <style>
 /* ---------- THEME (change these 7 values to re-colour the whole site) ---------- */
@@ -597,6 +617,7 @@ footer{border-top:1px solid var(--line);padding:46px 0 34px;background:rgba(10,1
   }
   function pretty(type){
     var v=(S[type]||'').trim(); if(!v) return null;
+    if(type==='facebook') return S.facebookName || 'GROW 360';
     if(type==='whatsapp') return '+' + v.replace(/[^0-9]/g,'');
     return v.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'');
   }
@@ -766,29 +787,6 @@ footer{border-top:1px solid var(--line);padding:46px 0 34px;background:rgba(10,1
       }
     })();
   }
-
-  /* ---------- background music: always on, no controls ---------- */
-  (function(){
-    if(!S.music) return;
-    var a=new Audio(S.music); a.loop=true; a.preload='auto';
-    a.volume=Math.max(0,Math.min(1,S.musicVolume==null?.35:S.musicVolume));
-    var started=false;
-    var gestureEvs=['pointerdown','mousedown','mouseup','touchstart','touchend','click','keydown'];
-    var softEvs=['pointermove','mousemove','wheel','scroll','touchmove'];   /* tried too, in case the browser allows it */
-    function removeAll(){ gestureEvs.concat(softEvs).forEach(function(e){ removeEventListener(e,tryPlay,true); }); clearInterval(timer); }
-    function tryPlay(){
-      if(started) return;
-      var p=a.play();
-      if(p && p.then){ p.then(function(){ started=true; removeAll(); }).catch(function(){}); }
-    }
-    gestureEvs.concat(softEvs).forEach(function(e){ addEventListener(e,tryPlay,{capture:true,passive:true}); });
-    var timer=setInterval(tryPlay,1500);          /* keeps retrying until the browser lets it play */
-    tryPlay(); a.addEventListener('canplaythrough',tryPlay); addEventListener('load',tryPlay);
-    document.addEventListener('visibilitychange',function(){
-      if(document.hidden){ a.pause(); }
-      else if(started){ a.play().catch(function(){}); }
-    });
-  })();
 
   /* ---------- contact form ---------- */
   $('#form').addEventListener('submit', function(e){
