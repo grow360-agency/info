@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GROW 360 | Digital Growth Agency</title>
+<meta name="description" content="GROW 360 is a digital growth agency. Strategy, design, development and marketing under one roof.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- =====================================================================
+     EDIT HERE: contact links + images.
+     Put your links between the quotes. The whole site updates by itself.
+     ===================================================================== -->
+<script>
+window.SITE = {
+  brand: "GROW 360",
+
+  // Social and contact links (leave "" until you have them)
+  facebook:  "",   // e.g. "https://facebook.com/yourpage"
+  whatsapp:  "8801858182562",   // number with country code, digits only (880 = Bangladesh)
+  email:     "grow360.contact@gmail.com",
+
+  // Background music file (keep bg.mp3 in the same folder as index.html)
+  music: "bg.mp3",
+  musicVolume: 0.35,   // 0 to 1
+
+  whatsappMessage: "Hello GROW 360, I would like to know more about your services.",
+
+  // Images
+  logo:   "https://res.cloudinary.com/oknbij8b/image/upload/v1794826100/GROW_360_Digital_Growth_Logo_jn5upl.webp",
+  banner: "https://res.cloudinary.com/oknbij8b/image/upload/v1794825946/20261116_163548.jpg_l10dbd.webp",
+  ceo:    "https://res.cloudinary.com/oknbij8b/image/upload/v1794826130/20260815_232939.jpg_zjlomw.webp",
+
+  // Services list (replace with your real list later)
+  services: [
+    { icon: "share",   title: "Social Media Marketing", text: "Content calendars, community growth and campaigns that turn followers into customers." },
+    { icon: "target",  title: "Paid Ads (Meta & Google)", text: "Data-driven ad campaigns built to lower your cost per lead and raise your return." },
+    { icon: "code",    title: "Website Development", text: "Fast, responsive and conversion-focused websites built around your business goals." },
+    { icon: "pen",     title: "Branding & Logo Design", text: "A complete visual identity that makes your business look credible and memorable." },
+    { icon: "video",   title: "Video & Motion Graphics", text: "Promo videos, reels and animated content that hold attention and drive action." },
+    { icon: "search",  title: "SEO & Content", text: "Rank higher on Google with technical SEO, keyword strategy and useful content." },
+    { icon: "bag",     title: "E-commerce Solutions", text: "Online stores, product pages and checkout flows that sell around the clock." },
+    { icon: "layers",  title: "UI/UX & Graphic Design", text: "Clean interfaces and creatives that explain your offer in a single glance." }
+  ]
+};
+</script>
+<!-- ===================================================================== -->
+
+<style>
+/* ---------- THEME (change these 7 values to re-colour the whole site) ---------- */
+:root{
+  --bg:#16040a;          /* page background (deep blood red-black) */
+  --bg2:#2b060e;         /* alternate section background (dark crimson) */
+  --card:rgba(255,255,255,.045);
+  --line:rgba(255,255,255,.10);
+  --text:#fff3f3;
+  --muted:#d1a9ae;
+  --c1:#ff1f1f;          /* primary (logo red) */
+  --c2:#a30008;          /* secondary (deep blood red) */
+  --c3:#ff7a66;          /* accent (light red / coral) */
+  --grad:linear-gradient(120deg,#ff4040,#d4000f);
+  --nav-h:74px;
+  --radius:22px;
+  --font-head:"Sora",system-ui,sans-serif;
+  --font-body:"Manrope",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.65;
+  overflow-x:hidden;padding-top:var(--nav-h);
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+svg.i{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+section{position:relative;scroll-margin-top:var(--nav-h)}
+.wrap{width:min(1180px,100%);margin-inline:auto;padding-inline:max(20px,env(safe-area-inset-left,0px))}
+h1,h2,h3{font-family:var(--font-head);line-height:1.12;letter-spacing:-.02em;text-wrap:balance}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 200%;animation:shift 6s ease infinite}
+@keyframes shift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+:focus-visible{outline:2px solid var(--c1);outline-offset:3px;border-radius:8px}
+
+/* ---------- ambient background ---------- */
+.ambient{position:fixed;inset:0;z-index:-1;overflow:hidden;background:var(--bg)}
+.ambient::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;opacity:.22;mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 75%)}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.5;will-change:transform}
+.orb.a{width:520px;height:520px;background:var(--c1);top:-120px;left:-140px;animation:float1 18s ease-in-out infinite}
+.orb.b{width:600px;height:600px;background:var(--c2);bottom:-200px;right:-160px;animation:float2 22s ease-in-out infinite}
+.orb.c{width:380px;height:380px;background:var(--c3);top:45%;left:55%;opacity:.16;animation:float3 26s ease-in-out infinite}
+@keyframes float1{50%{transform:translate(120px,90px) scale(1.15)}}
+@keyframes float2{50%{transform:translate(-140px,-80px) scale(.9)}}
+@keyframes float3{50%{transform:translate(-200px,60px) scale(1.2)}}
+
+
+/* ---------- custom cursor (desktop only) ---------- */
+html.has-cursor,html.has-cursor *{cursor:none!important}
+.cur{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .25s}
+.cur.on{opacity:1}
+.cur-glow{position:fixed;left:0;top:0;z-index:9998;pointer-events:none;width:230px;height:230px;margin:-115px 0 0 -115px;border-radius:50%;opacity:0;transition:opacity .3s,width .3s,height .3s,margin .3s;
+  background:radial-gradient(circle,rgba(190,0,12,.62) 0%,rgba(150,0,10,.34) 34%,rgba(110,0,8,.12) 58%,transparent 72%);mix-blend-mode:screen;filter:blur(6px)}
+.cur-glow.on{opacity:1}
+.cur-glow.hot{width:320px;height:320px;margin:-160px 0 0 -160px;background:radial-gradient(circle,rgba(230,10,20,.72) 0%,rgba(170,0,12,.4) 34%,rgba(120,0,8,.14) 58%,transparent 72%)}
+.cur img{display:block;width:38px;height:auto;margin:-3px 0 0 -19px;transform-origin:50% 6px;transform:rotate(-22deg);transition:transform .18s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 0 7px rgba(255,20,20,.95)) drop-shadow(0 0 18px rgba(190,0,12,.85)) drop-shadow(0 0 36px rgba(140,0,10,.8));animation:curPulse 2.4s ease-in-out infinite}
+.cur.hot img{transform:rotate(-22deg) scale(1.3)}
+.cur.down img{transform:rotate(-22deg) scale(.82)}
+@keyframes curPulse{50%{filter:drop-shadow(0 0 10px rgba(255,40,40,1)) drop-shadow(0 0 24px rgba(200,0,14,.95)) drop-shadow(0 0 48px rgba(150,0,10,.9))}}
+.drip{position:fixed;left:0;top:0;z-index:9997;pointer-events:none;width:7px;height:10px;margin:-5px 0 0 -3px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 35% 30%,#ff3030,#9a0009);box-shadow:0 0 0 1px rgba(0,0,0,.6),0 0 10px rgba(200,0,14,.8);animation:drip .95s cubic-bezier(.4,.0,.9,.6) forwards}
+@keyframes drip{0%{opacity:.95;transform:translate(var(--dx,0),0) scale(1)}100%{opacity:0;transform:translate(var(--dx,0),var(--dy,46px)) scale(.4,1.6)}}
+@media (hover:none),(pointer:coarse){.cur-glow{width:190px;height:190px;margin:-95px 0 0 -95px}.cur.on{transition:opacity .08s}.cur,.cur-glow{transition:opacity .35s}}
+
+/* ---------- progress bar ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:200;box-shadow:0 0 14px var(--c1)}
+
+/* ---------- navbar ---------- */
+.nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:150;display:flex;align-items:center;
+  padding-top:env(safe-area-inset-top,0px);transition:background .3s,backdrop-filter .3s,box-shadow .3s}
+.nav.scrolled{background:rgba(22,4,10,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--line),0 12px 40px rgba(0,0,0,.35)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-head);font-weight:800;font-size:1.2rem;letter-spacing:.02em}
+.logo-ring{width:52px;height:52px;border-radius:50%;flex:none;display:grid;place-items:center;position:relative;isolation:isolate}
+.logo-ring::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--c1),var(--c3),var(--c2),var(--c1));animation:spin 8s linear infinite;z-index:-1}
+.logo-ring img,.logo-ring .logo-fb{width:calc(100% - 5px);height:calc(100% - 5px);border-radius:50%;object-fit:cover;background:#fff;transform:none!important;animation:none!important}
+.logo-ring .logo-fb{display:none;place-items:center;background:var(--bg2);color:var(--c1);font-family:var(--font-head);font-weight:800}
+@keyframes spin{to{transform:rotate(360deg)}}
+.menu{display:flex;align-items:center;gap:6px;list-style:none}
+.menu a{display:block;padding:9px 16px;border-radius:999px;font-weight:600;font-size:.95rem;color:var(--muted);transition:color .25s,background .25s}
+.menu a:hover,.menu a.active{color:#fff;background:rgba(255,255,255,.08)}
+.menu a.active{box-shadow:inset 0 0 0 1px var(--line)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 26px;border-radius:999px;font-weight:700;font-size:.97rem;border:0;cursor:pointer;font-family:inherit;color:#fff;background:var(--grad);position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;box-shadow:0 10px 30px color-mix(in srgb,var(--c1) 35%,transparent)}
+.btn::after{content:"";position:absolute;top:0;left:-120%;width:80%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .7s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 16px 40px color-mix(in srgb,var(--c1) 50%,transparent)}
+.btn:hover::after{left:140%}
+.btn.ghost{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--c1);color:var(--c1)}
+.burger{display:none;width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--card);cursor:pointer;place-items:center;color:var(--text)}
+.burger span,.burger span::before,.burger span::after{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;position:relative;transition:.3s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+.burger.open span{background:transparent}
+.burger.open span::before{top:0;transform:rotate(45deg)}
+.burger.open span::after{top:0;transform:rotate(-45deg)}
+
+/* ---------- banner (NOT a background: full width, never cropped) ---------- */
+.banner{position:relative;width:100%;line-height:0;overflow:hidden;border-bottom:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.banner img{width:100%;height:auto;display:block}
+.banner::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:var(--grad);transform-origin:left;animation:barIn 1.6s .4s both cubic-bezier(.2,.8,.2,1)}
+@keyframes barIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.banner.loaded img{animation:bannerIn 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes bannerIn{from{opacity:0;transform:scale(1.03)}to{opacity:1;transform:none}}
+
+/* ---------- ticker ---------- */
+.ticker{overflow:hidden;border-block:1px solid var(--line);background:rgba(255,255,255,.025);padding:16px 0}
+.ticker-track{display:flex;gap:48px;width:max-content;animation:marquee 38s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker span{display:flex;align-items:center;gap:48px;font-family:var(--font-head);font-weight:600;font-size:1.05rem;color:var(--muted);white-space:nowrap;text-transform:uppercase;letter-spacing:.08em}
+.ticker span::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--grad);display:block}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- intro + 3D scene ---------- */
+.intro{padding:clamp(60px,9vw,120px) 0}
+.intro .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c1)}
+.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c1);box-shadow:0 0 0 0 var(--c1);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.intro h1{font-size:clamp(2.3rem,5.4vw,4.4rem);margin:22px 0}
+.intro p.lead{font-size:1.12rem;color:var(--muted);max-width:56ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.scene-box{position:relative;height:clamp(340px,44vw,520px);border-radius:var(--radius);border:1px solid var(--line);background:radial-gradient(circle at 50% 40%,rgba(255,31,31,.16),transparent 65%),var(--card);overflow:hidden;min-width:0}
+.scene-box canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
+.scene-tag{position:absolute;left:16px;bottom:16px;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(22,4,10,.75);border:1px solid var(--line);font-size:.8rem;font-weight:600;color:var(--muted);backdrop-filter:blur(8px)}
+.scene-fallback{position:absolute;inset:0;display:none;place-items:center;font-family:var(--font-head);font-size:5rem;font-weight:800}
+
+/* ---------- stats ---------- */
+.stats{padding:0 0 clamp(60px,8vw,100px)}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;perspective:1200px}
+.stat{padding:30px 24px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);text-align:center;position:relative;overflow:hidden}
+.stat b{display:block;font-family:var(--font-head);font-size:clamp(2.1rem,4vw,3.2rem);font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.1}
+.stat small{display:block;margin-top:8px;color:var(--muted);font-weight:600}
+
+/* ---------- section heads ---------- */
+.block{padding:clamp(70px,9vw,120px) 0}
+.block.alt{background:linear-gradient(180deg,transparent,rgba(60,8,16,.75) 15%,rgba(60,8,16,.75) 85%,transparent)}
+.head{text-align:center;max-width:720px;margin:0 auto clamp(40px,6vw,70px)}
+.head h2{font-size:clamp(2rem,4.4vw,3.2rem);margin:18px 0 14px}
+.head p{color:var(--muted);font-size:1.08rem}
+
+/* ---------- tilt cards ---------- */
+[data-tilt]{transform-style:preserve-3d;transition:transform .2s ease-out,border-color .3s,box-shadow .3s;will-change:transform}
+.spot{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--c1) 22%,transparent),transparent 60%)}
+[data-tilt]:hover .spot{opacity:1}
+
+/* ---------- services ---------- */
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;perspective:1400px}
+.svc{position:relative;padding:32px 26px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);overflow:hidden;min-width:0}
+.svc:hover{border-color:color-mix(in srgb,var(--c1) 55%,transparent);box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.svc .ico{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;background:var(--grad);color:#fff;margin-bottom:22px;transform:translateZ(50px);box-shadow:0 14px 30px color-mix(in srgb,var(--c1) 35%,transparent)}
+.svc .ico svg{width:28px;height:28px;stroke-width:2}
+.svc h3{font-size:1.2rem;margin-bottom:10px;transform:translateZ(30px)}
+.svc p{color:var(--muted);font-size:.96rem;transform:translateZ(20px)}
+.svc .num{position:absolute;right:18px;top:10px;font-family:var(--font-head);font-weight:800;font-size:3.4rem;color:rgba(255,255,255,.05);line-height:1}
+
+/* ---------- process ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+.steps::before{content:"";position:absolute;top:38px;left:8%;right:8%;height:2px;background:linear-gradient(90deg,var(--c1),var(--c3),#fff);opacity:.35;transform-origin:left;transform:scaleX(0);transition:transform 1.6s cubic-bezier(.2,.8,.2,1)}
+.steps.in::before{transform:scaleX(1)}
+.step{text-align:center;position:relative;padding:0 6px}
+.step .dot{width:76px;height:76px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;font-family:var(--font-head);font-weight:800;font-size:1.5rem;background:var(--bg2);border:2px solid var(--c1);color:var(--c1);position:relative;z-index:1;box-shadow:0 0 0 8px var(--bg),0 0 30px color-mix(in srgb,var(--c1) 40%,transparent)}
+.step:nth-child(2) .dot{border-color:var(--c3);color:var(--c3);box-shadow:0 0 0 8px var(--bg),0 0 30px color-mix(in srgb,var(--c3) 40%,transparent)}
+.step:nth-child(3) .dot{border-color:#fff;color:#fff;box-shadow:0 0 0 8px var(--bg),0 0 30px rgba(255,255,255,.25)}
+.step:nth-child(4) .dot{background:var(--grad);color:#fff;border-color:transparent}
+.step h3{font-size:1.15rem;margin-bottom:8px}
+.step p{color:var(--muted);font-size:.95rem}
+
+/* ---------- why ---------- */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;perspective:1400px}
+.why{display:flex;gap:20px;padding:30px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden;min-width:0}
+.why .ico{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--c1);transform:translateZ(40px)}
+.why h3{font-size:1.15rem;margin-bottom:6px}
+.why p{color:var(--muted);font-size:.96rem}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,6vw,80px);align-items:center}
+.portrait{position:relative;max-width:440px;margin-inline:auto;perspective:1200px;width:100%}
+.portrait-card{position:relative;border-radius:30px;padding:4px;background:conic-gradient(from var(--ang,0deg),var(--c1),var(--c2),var(--c3),var(--c1));animation:rot 6s linear infinite;box-shadow:0 40px 90px rgba(0,0,0,.55)}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes rot{to{--ang:360deg}}
+.portrait-card img{width:100%;height:auto;border-radius:27px;background:var(--bg2);aspect-ratio:4/5;object-fit:cover;object-position:center top}
+.float-badge{position:absolute;padding:14px 18px;border-radius:18px;background:rgba(43,6,14,.88);backdrop-filter:blur(12px);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.5);transform:translateZ(70px);animation:bob 5s ease-in-out infinite}
+.float-badge b{display:block;font-family:var(--font-head);font-size:1.6rem;line-height:1.1}
+.float-badge small{color:var(--muted);font-weight:600;font-size:.8rem}
+.float-badge.one{left:-22px;bottom:34px}
+.float-badge.two{right:-18px;top:30px;animation-delay:-2.5s}
+@keyframes bob{50%{translate:0 -12px}}
+.about-text h2{font-size:clamp(2rem,4vw,3rem);margin:18px 0 20px}
+.about-text p{color:var(--muted);margin-bottom:16px;font-size:1.04rem}
+.about-text p strong{color:var(--text)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 30px}
+.chips span{padding:8px 16px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:.88rem;font-weight:600;transition:.25s}
+.chips span:hover{border-color:var(--c1);color:var(--c1);transform:translateY(-3px)}
+.ceo{display:flex;align-items:center;gap:18px;padding:22px 24px;border-radius:20px;background:var(--card);border:1px solid var(--line)}
+.ceo .avatar{width:68px;height:68px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--c1);flex:none;background:var(--bg2)}
+.ceo h3{font-size:1.25rem}
+.ceo p{margin:2px 0 0;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c1);font-weight:800}
+
+/* ---------- contact ---------- */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:stretch}
+.links{display:grid;gap:16px;perspective:1200px}
+.clink{display:flex;align-items:center;gap:18px;padding:22px 24px;border-radius:20px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden;min-width:0}
+.clink:hover{border-color:var(--c1)}
+.clink .ico{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;flex:none;background:var(--grad);color:#fff;transform:translateZ(40px)}
+.clink .ico svg{width:26px;height:26px;stroke-width:2}
+.clink h3{font-size:1.05rem}
+.clink small{color:var(--muted);display:block;overflow-wrap:anywhere}
+.clink .go{margin-left:auto;color:var(--muted);transition:.3s}
+.clink:hover .go{color:var(--c1);transform:translateX(6px)}
+.clink.pending small::after{content:" (link coming soon)";opacity:.7}
+.form{padding:32px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);display:grid;gap:16px;align-content:start;min-width:0}
+.form h3{font-size:1.4rem}
+.form p.sub{color:var(--muted);font-size:.95rem;margin-top:-8px}
+.field{display:grid;gap:7px}
+.field label{font-size:.85rem;font-weight:700;color:var(--muted)}
+.field input,.field textarea{width:100%;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font:inherit;transition:border-color .25s,box-shadow .25s}
+.field textarea{min-height:130px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:0;border-color:var(--c1);box-shadow:0 0 0 4px color-mix(in srgb,var(--c1) 20%,transparent)}
+.note{font-size:.86rem;color:var(--c3);min-height:1.2em}
+
+/* ---------- cta band ---------- */
+.band{margin-top:clamp(60px,8vw,100px);padding:clamp(34px,5vw,60px);border-radius:30px;text-align:center;position:relative;overflow:hidden;background:linear-gradient(130deg,color-mix(in srgb,var(--c1) 22%,var(--bg2)),color-mix(in srgb,var(--c2) 26%,var(--bg2)));border:1px solid var(--line)}
+.band::before{content:"360°";position:absolute;right:-20px;top:-40px;font-family:var(--font-head);font-weight:800;font-size:clamp(8rem,20vw,16rem);color:rgba(255,255,255,.05);line-height:1;animation:bob 8s ease-in-out infinite}
+.band h2{font-size:clamp(1.7rem,3.6vw,2.6rem);margin-bottom:12px;position:relative}
+.band p{color:var(--muted);margin-bottom:26px;position:relative}
+.band .btn{position:relative}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:46px 0 34px;background:rgba(10,1,4,.65);padding-bottom:calc(34px + env(safe-area-inset-bottom,0px))}
+.foot{display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between}
+.social{display:flex;gap:12px}
+.social a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:var(--card);transition:.3s}
+.social a:hover{background:var(--grad);color:#fff;transform:translateY(-5px) rotate(8deg);border-color:transparent}
+.copy{color:var(--muted);font-size:.9rem;text-align:center;margin-top:28px}
+
+
+/* ---------- floating buttons ---------- */
+.fab{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:140;display:grid;gap:12px}
+.fab a,.fab button{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;border:0;cursor:pointer;color:#fff;box-shadow:0 12px 34px rgba(0,0,0,.5);transition:transform .25s}
+.fab a:hover,.fab button:hover{transform:scale(1.1) translateY(-3px)}
+.fab .wa{background:#25d366;position:relative}
+.fab .wa::before{content:"";position:absolute;inset:0;border-radius:50%;background:#25d366;animation:pulse 2.2s infinite;z-index:-1}
+@keyframes pulse{to{transform:scale(1.7);opacity:0}}
+.fab .up{background:var(--bg2);border:1px solid var(--line);opacity:0;pointer-events:none;transition:opacity .3s,transform .25s}
+.fab .up.show{opacity:1;pointer-events:auto}
+
+/* ---------- reveal (content is visible when JS is off) ---------- */
+.js .reveal{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
+.js .reveal.in{opacity:1;transform:none}
+.js .reveal.left{transform:translateX(-50px)}
+.js .reveal.right{transform:translateX(50px)}
+.js .reveal.zoom{transform:scale(.92)}
+.js .reveal.left.in,.js .reveal.right.in,.js .reveal.zoom.in{transform:none}
+.js .reveal.in[data-tilt]{transition:transform .2s ease-out,border-color .3s,box-shadow .3s;transition-delay:0s}
+
+/* ---------- responsive ---------- */
+@media (max-width:1060px){
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr);row-gap:40px}
+  .steps::before{display:none}
+}
+@media (max-width:900px){
+  :root{--nav-h:66px}
+  .burger{display:grid}
+  .nav-right .btn{display:none}
+  .menu{position:fixed;top:calc(var(--nav-h) + env(safe-area-inset-top,0px));left:0;right:0;flex-direction:column;align-items:stretch;gap:4px;padding:16px max(20px,env(safe-area-inset-left,0px)) 24px;background:rgba(22,4,10,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line);transform:translateY(-16px);opacity:0;pointer-events:none;transition:.3s}
+  .menu.open{transform:none;opacity:1;pointer-events:auto}
+  .menu a{padding:14px 18px;font-size:1.05rem}
+  .logo-ring{width:46px;height:46px}
+  .intro .wrap,.about-grid,.contact-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .float-badge.one{left:6px}.float-badge.two{right:6px}
+}
+@media (max-width:560px){
+  .svc-grid,.steps{grid-template-columns:1fr}
+  .stat-grid{gap:12px}
+  .stat{padding:24px 14px}
+  .why{flex-direction:column;gap:14px}
+  .cta-row .btn{width:100%;justify-content:center}
+  .form{padding:22px}
+  .fab a,.fab button{width:50px;height:50px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M9 9.5c.4 2.2 2.3 4.1 4.5 4.5l1-1.2-1.8-.9-.8.6c-.8-.4-1.5-1.1-1.9-1.9l.6-.8-.9-1.8z"/></symbol>
+    <symbol id="i-email" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  </defs>
+</svg>
+
+<div class="progress" id="progress"></div>
+<div class="cur-glow" id="curGlow" aria-hidden="true"></div>
+<div class="cur" id="cur" aria-hidden="true"><img id="curImg" alt="" width="38" height="51" draggable="false"></div>
+<div class="ambient" aria-hidden="true"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+
+<!-- ================= NAVBAR ================= -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#home" class="brand" aria-label="GROW 360 home">
+      <span class="logo-ring">
+        <img data-src="logo" alt="GROW 360 logo" width="52" height="52">
+        <span class="logo-fb">G</span>
+      </span>
+      <span>GROW <span class="grad-text">360</span></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#contact" class="btn">Get in Touch <svg class="i"><use href="#i-arrow"/></svg></a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ================= HOME: BANNER FIRST ================= -->
+<section id="home">
+  <div class="banner" id="banner">
+    <img data-src="banner" alt="GROW 360 - Digital Growth Agency banner" fetchpriority="high">
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track" id="ticker"></div>
+  </div>
+
+  <div class="intro">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow reveal">Digital Growth Agency</span>
+        <h1 class="reveal" style="--d:.1s">We grow your brand in <span class="grad-text">every dimension.</span></h1>
+        <p class="lead reveal" style="--d:.2s">GROW 360 brings strategy, design, development and marketing together, so your business does not rely on five different vendors to get found, trusted and chosen online.</p>
+        <div class="cta-row reveal" style="--d:.3s">
+          <a href="#services" class="btn">Explore Services <svg class="i"><use href="#i-arrow"/></svg></a>
+          <a href="#contact" class="btn ghost">Start a Project</a>
+        </div>
+      </div>
+      <div class="reveal zoom" style="--d:.2s">
+        <div class="scene-box" id="scene3d">
+          <div class="scene-fallback grad-text">360°</div>
+          <div class="scene-tag"><svg class="i"><use href="#i-trend"/></svg> Growth, rendered in 3D. Move your mouse.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="wrap">
+      <div class="stat-grid">
+        <div class="stat reveal" data-tilt style="--d:0s"><span class="spot"></span><b><span data-count="350">0</span>+</b><small>Companies served</small></div>
+        <div class="stat reveal" data-tilt style="--d:.1s"><span class="spot"></span><b><span data-count="100">0</span>%</b><small>Projects delivered</small></div>
+        <div class="stat reveal" data-tilt style="--d:.2s"><span class="spot"></span><b>360°</b><small>Full-service approach</small></div>
+        <div class="stat reveal" data-tilt style="--d:.3s"><span class="spot"></span><b>24/7</b><small>Online support</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section id="services" class="block alt">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow reveal">What We Do</span>
+      <h2 class="reveal" style="--d:.08s">Services built to <span class="grad-text">move your numbers</span></h2>
+      <p class="reveal" style="--d:.16s">Pick one service or let us run the whole growth engine for you. Every project has a clear goal, a clear timeline and a clear report.</p>
+    </div>
+    <div class="svc-grid" id="svcGrid"></div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section id="process" class="block">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow reveal">How We Work</span>
+      <h2 class="reveal" style="--d:.08s">From first call to <span class="grad-text">measurable growth</span></h2>
+      <p class="reveal" style="--d:.16s">A simple four-step process that keeps you informed and keeps projects on schedule.</p>
+    </div>
+    <div class="steps reveal" id="steps">
+      <div class="step"><div class="dot">1</div><h3>Discover</h3><p>We learn your business, audience and competitors, and agree on goals we can measure.</p></div>
+      <div class="step"><div class="dot">2</div><h3>Strategize</h3><p>We plan channels, creatives and a timeline, then share it with you before work begins.</p></div>
+      <div class="step"><div class="dot">3</div><h3>Create</h3><p>Our designers, developers and marketers build and launch, with regular progress updates.</p></div>
+      <div class="step"><div class="dot">4</div><h3>Grow</h3><p>We track results, improve what works and scale it, with reports you can understand.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY US ================= -->
+<section id="why" class="block alt">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow reveal">Why GROW 360</span>
+      <h2 class="reveal" style="--d:.08s">A team that treats your goals <span class="grad-text">as its own</span></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why reveal left" data-tilt><span class="spot"></span><div class="ico"><svg class="i"><use href="#i-target"/></svg></div><div><h3>Strategy before design</h3><p>Every page, post and ad starts with a goal. We build what moves your business forward, not what only looks nice.</p></div></div>
+      <div class="why reveal right" data-tilt><span class="spot"></span><div class="ico"><svg class="i"><use href="#i-users"/></svg></div><div><h3>One team, every skill</h3><p>Design, code, content and ads under one roof means faster work and consistent branding everywhere.</p></div></div>
+      <div class="why reveal left" data-tilt><span class="spot"></span><div class="ico"><svg class="i"><use href="#i-chat"/></svg></div><div><h3>Clear communication</h3><p>You always know what is being done, who is doing it and when it will be ready.</p></div></div>
+      <div class="why reveal right" data-tilt><span class="spot"></span><div class="ico"><svg class="i"><use href="#i-clock"/></svg></div><div><h3>Delivered on time</h3><p>Over 350 companies have trusted us, and we have successfully submitted every project we took on.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="block">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="portrait reveal left">
+        <div data-tilt style="position:relative">
+          <div class="portrait-card"><img data-src="ceo" alt="Mr. Tanvir Ahmed, CEO and Founder of GROW 360" loading="lazy"></div>
+          <div class="float-badge one"><b class="grad-text">350+</b><small>Companies served</small></div>
+          <div class="float-badge two"><b class="grad-text">100%</b><small>Projects submitted</small></div>
+        </div>
+      </div>
+      <div class="about-text">
+        <span class="eyebrow reveal">About Us</span>
+        <h2 class="reveal" style="--d:.08s">Trusted by <span class="grad-text">350+ companies</span> and counting</h2>
+        <p class="reveal" style="--d:.14s"><strong>GROW 360</strong> is a digital growth agency. We have already worked with more than <strong>350 companies</strong> across different industries, and we have <strong>successfully submitted every project</strong> we have taken on.</p>
+        <p class="reveal" style="--d:.2s">From first-time founders to established businesses, our clients come to us for one reason: they want a partner who plans carefully, builds well and delivers what was promised.</p>
+        <div class="chips reveal" style="--d:.26s" id="chips"></div>
+        <div class="ceo reveal" style="--d:.32s">
+          <img class="avatar" data-src="ceo" alt="Mr. Tanvir Ahmed" loading="lazy">
+          <div>
+            <h3>Mr. Tanvir Ahmed</h3>
+            <p>CEO &amp; Founder of GROW 360</p>
+          </div>
+        </div>
+        <p class="reveal" style="--d:.38s;margin-top:20px">Mr. Tanvir Ahmed founded GROW 360 to help businesses grow online with strategy, creativity and honest work. He leads the team with one standard: every project must create real value for the client.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="block alt">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow reveal">Contact</span>
+      <h2 class="reveal" style="--d:.08s">Let us build your <span class="grad-text">next growth story</span></h2>
+      <p class="reveal" style="--d:.16s">Message us on your favourite platform. We reply fast.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="links">
+        <a class="clink reveal left" data-link="email" data-tilt><span class="spot"></span><span class="ico"><svg class="i"><use href="#i-email"/></svg></span><span><h3>Email</h3><small data-text="email">Write to us</small></span><svg class="i go"><use href="#i-arrow"/></svg></a>
+        <a class="clink reveal left" data-link="whatsapp" data-tilt target="_blank" rel="noopener" style="--d:0.08s"><span class="spot"></span><span class="ico"><svg class="i"><use href="#i-whatsapp"/></svg></span><span><h3>WhatsApp</h3><small data-text="whatsapp">Chat with us</small></span><svg class="i go"><use href="#i-arrow"/></svg></a>
+        <a class="clink reveal left" data-link="facebook" data-tilt target="_blank" rel="noopener" style="--d:0.16s"><span class="spot"></span><span class="ico"><svg class="i"><use href="#i-facebook"/></svg></span><span><h3>Facebook</h3><small data-text="facebook">Follow our page</small></span><svg class="i go"><use href="#i-arrow"/></svg></a>
+      </div>
+
+      <form class="form reveal right" id="form" novalidate>
+        <h3>Send us a quick message</h3>
+        <p class="sub">Tell us about your project. It opens in WhatsApp so we can reply right away.</p>
+        <div class="field"><label for="fName">Your name</label><input id="fName" type="text" autocomplete="name" placeholder="Your full name"></div>
+        <div class="field"><label for="fService">Service you need</label><input id="fService" type="text" placeholder="e.g. Website, Facebook ads, Branding"></div>
+        <div class="field"><label for="fMsg">Project details</label><textarea id="fMsg" placeholder="Tell us what you want to achieve"></textarea></div>
+        <button type="submit" class="btn" style="justify-content:center">Send Message <svg class="i"><use href="#i-arrow"/></svg></button>
+        <div class="note" id="formNote" role="status"></div>
+      </form>
+    </div>
+
+    <div class="band reveal zoom">
+      <h2>Ready to grow with GROW 360?</h2>
+      <p>Join 350+ companies that trusted us with their digital growth.</p>
+      <a href="#contact" class="btn" data-link="whatsapp" target="_blank" rel="noopener">Talk to Us Now <svg class="i"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a href="#home" class="brand">
+        <span class="logo-ring"><img data-src="logo" alt="GROW 360 logo" width="52" height="52"><span class="logo-fb">G</span></span>
+        <span>GROW <span class="grad-text">360</span></span>
+      </a>
+      <div class="social">
+        <a data-link="facebook" target="_blank" rel="noopener" aria-label="Facebook"><svg class="i"><use href="#i-facebook"/></svg></a>
+        <a data-link="whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i"><use href="#i-whatsapp"/></svg></a>
+        <a data-link="email" aria-label="Email"><svg class="i"><use href="#i-email"/></svg></a>
+      </div>
+    </div>
+    <p class="copy">© <span id="year"></span> GROW 360. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="fab">
+  <button class="up" id="toTop" aria-label="Back to top"><svg class="i"><use href="#i-up"/></svg></button>
+  <a class="wa" data-link="whatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg class="i"><use href="#i-whatsapp"/></svg></a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var S = window.SITE, $ = function(s,c){return (c||document).querySelector(s)}, $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- images from config ---------- */
+  $$('img[data-src]').forEach(function(img){
+    var key = img.getAttribute('data-src');
+    img.addEventListener('error', function(){
+      var fb = img.parentNode.querySelector('.logo-fb');
+      if(fb){ img.style.display='none'; fb.style.display='grid'; }
+    });
+    img.addEventListener('load', function(){
+      var b = img.closest('.banner'); if(b) b.classList.add('loaded');
+    });
+    img.src = S[key];
+  });
+
+  /* ---------- links from config ---------- */
+  function href(type){
+    var v = (S[type]||'').trim();
+    if(!v) return null;
+    if(type==='whatsapp'){ return 'https://wa.me/' + v.replace(/[^0-9]/g,'') + '?text=' + encodeURIComponent(S.whatsappMessage||''); }
+    if(type==='email'){ return 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(v) + '&su=' + encodeURIComponent('Enquiry from GROW 360 website'); }
+    if(!/^https?:\/\//i.test(v)) v = 'https://' + v.replace(/^\/+/,'');
+    return v;
+  }
+  function pretty(type){
+    var v=(S[type]||'').trim(); if(!v) return null;
+    if(type==='whatsapp') return '+' + v.replace(/[^0-9]/g,'');
+    return v.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'');
+  }
+  $$('[data-link]').forEach(function(a){
+    var t=a.getAttribute('data-link'), h=href(t);
+    if(h){ a.setAttribute('href',h); a.setAttribute('target','_blank'); a.setAttribute('rel','noopener'); }
+    else {
+      a.setAttribute('href','#contact'); a.removeAttribute('target'); a.classList.add('pending');
+    }
+  });
+  $$('[data-text]').forEach(function(el){ var p=pretty(el.getAttribute('data-text')); if(p) el.textContent=p; });
+
+  /* ---------- services ---------- */
+  var grid = $('#svcGrid');
+  S.services.forEach(function(s,i){
+    var el = document.createElement('div');
+    el.className='svc reveal'; el.setAttribute('data-tilt',''); el.style.setProperty('--d',(i%4)*0.08+'s');
+    el.innerHTML = '<span class="spot"></span><span class="num">'+String(i+1).padStart(2,'0')+'</span>'+
+      '<div class="ico"><svg class="i"><use href="#i-'+s.icon+'"/></svg></div><h3></h3><p></p>';
+    el.querySelector('h3').textContent = s.title; el.querySelector('p').textContent = s.text;
+    grid.appendChild(el);
+  });
+  var chips = $('#chips');
+  S.services.forEach(function(s){ var c=document.createElement('span'); c.textContent=s.title; chips.appendChild(c); });
+
+  /* ticker */
+  var words = S.services.map(function(s){return s.title});
+  var one = '<span>'+words.join('</span><span>')+'</span>';
+  $('#ticker').innerHTML = one + one;
+
+  $('#year').textContent = new Date().getFullYear();
+
+  /* ---------- navbar ---------- */
+  var nav=$('#nav'), burger=$('#burger'), menu=$('#menu'), prog=$('#progress'), toTop=$('#toTop');
+  burger.addEventListener('click', function(){
+    var o = menu.classList.toggle('open'); burger.classList.toggle('open',o); burger.setAttribute('aria-expanded',o);
+  });
+  $$('#menu a').forEach(function(a){ a.addEventListener('click', function(){ menu.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }); });
+  toTop.addEventListener('click', function(){ window.scrollTo({top:0,behavior:reduce?'auto':'smooth'}); });
+
+  var secs = ['home','services','process','why','about'].map(function(id){return document.getElementById(id)});
+  var links = $$('#menu a');
+  function onScroll(){
+    var y = window.scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    nav.classList.toggle('scrolled', y>20);
+    prog.style.width = (h>0 ? y/h*100 : 0) + '%';
+    toTop.classList.toggle('show', y>700);
+    var cur = 0;
+    secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top <= innerHeight*0.35) cur=i; });
+    links.forEach(function(a,i){ a.classList.toggle('active', i===cur); });
+  }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* ---------- reveal + counters ---------- */
+  function runCount(el){
+    var end=+el.getAttribute('data-count'), t0=null, dur=1800;
+    if(reduce){ el.textContent=end; return; }
+    function step(t){ if(!t0)t0=t; var p=Math.min((t-t0)/dur,1), e=1-Math.pow(1-p,4); el.textContent=Math.round(end*e); if(p<1)requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          $$('[data-count]', e.target).forEach(runCount);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    $$('.reveal').forEach(function(el){ io.observe(el); });
+  } else { $$('.reveal').forEach(function(el){ el.classList.add('in'); }); $$('[data-count]').forEach(runCount); }
+
+  /* ---------- 3D tilt cards ---------- */
+  var fine = window.matchMedia && matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(fine && !reduce){
+    $$('[data-tilt]').forEach(function(card){
+      card.addEventListener('mousemove', function(e){
+        var r=card.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+        var rx=((y/r.height)-.5)*-12, ry=((x/r.width)-.5)*12;
+        card.style.transform='perspective(900px) rotateX('+rx+'deg) rotateY('+ry+'deg) translateZ(8px)';
+        card.style.setProperty('--mx',x+'px'); card.style.setProperty('--my',y+'px');
+        var sp=card.querySelector('.spot'); if(sp){ sp.style.setProperty('--mx',x+'px'); sp.style.setProperty('--my',y+'px'); }
+      });
+      card.addEventListener('mouseleave', function(){ card.style.transform=''; });
+    });
+  }
+
+  /* ---------- custom bloody cursor ---------- */
+  var CURSOR_IMG = "data:image/png;base64,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";
+  if(window.matchMedia && matchMedia('(hover:hover) and (pointer:fine)').matches){
+    var cur=$('#cur'), curImg=$('#curImg'), cg=$('#curGlow');
+    curImg.src = (S.cursor && S.cursor.trim()) ? S.cursor : CURSOR_IMG;
+    var px=-100, py=-100, gx=-100, gy=-100, lastDrip=0, lastMoveT=0, started=false, lx=0, ly=0, travelled=0;
+    var hotSel = 'a,button,input,textarea,select,label,[data-tilt],.btn,.burger';
+    function place(){
+      cur.style.transform='translate3d('+px+'px,'+py+'px,0)';
+      gx += (px-gx)*(reduce?1:.14); gy += (py-gy)*(reduce?1:.14);
+      cg.style.transform='translate3d('+gx+'px,'+gy+'px,0)';
+      requestAnimationFrame(place);
+    }
+    function drip(x,y){
+      var d=document.createElement('span'); d.className='drip';
+      d.style.transform='translate('+x+'px,'+y+'px)';
+      d.style.left=x+'px'; d.style.top=y+'px';
+      d.style.setProperty('--dx',((Math.random()-.5)*14).toFixed(1)+'px');
+      d.style.setProperty('--dy',(34+Math.random()*34).toFixed(0)+'px');
+      d.style.width=(5+Math.random()*5).toFixed(1)+'px';
+      document.body.appendChild(d);
+      setTimeout(function(){ d.remove(); },1000);
+    }
+    addEventListener('mousemove',function(e){
+      px=e.clientX; py=e.clientY;
+      if(!started){ started=true; gx=px; gy=py; document.documentElement.classList.add('has-cursor'); place(); }
+      cur.classList.add('on'); cg.classList.add('on');
+      var t=e.target, hot = t && t.closest && t.closest(hotSel);
+      cur.classList.toggle('hot',!!hot); cg.classList.toggle('hot',!!hot);
+    },{passive:true});
+    if(!reduce){
+      setInterval(function(){
+        if(document.hidden || !cur.classList.contains('on')) return;
+        drip(px+(Math.random()-.5)*12, py+6);
+      }, 420);
+    }
+    document.addEventListener('mouseleave',function(){ cur.classList.remove('on'); cg.classList.remove('on'); });
+    document.addEventListener('mouseenter',function(){ cur.classList.add('on'); cg.classList.add('on'); });
+    addEventListener('mousedown',function(){ cur.classList.add('down'); });
+    addEventListener('mouseup',function(){ cur.classList.remove('down'); });
+  } else {
+    /* phones and tablets: the mark follows your finger while you touch or scroll */
+    (function(){
+      var cur=$('#cur'), curImg=$('#curImg'), cg=$('#curGlow');
+      curImg.src = (S.cursor && S.cursor.trim()) ? S.cursor : CURSOR_IMG;
+      var OFFSET=64;                      /* shown just above the fingertip so the finger does not hide it */
+      var tx=-100, ty=-100, gx=-100, gy=-100, active=false, hideT=0, loop=false;
+      function frame(){
+        cur.style.transform='translate3d('+tx+'px,'+(ty-OFFSET)+'px,0)';
+        gx += (tx-gx)*(reduce?1:.22); gy += (ty-OFFSET-gy)*(reduce?1:.22);
+        cg.style.transform='translate3d('+gx+'px,'+gy+'px,0)';
+        requestAnimationFrame(frame);
+      }
+      function drip(x,y){
+        var d=document.createElement('span'); d.className='drip';
+        d.style.left=x+'px'; d.style.top=y+'px';
+        d.style.setProperty('--dx',((Math.random()-.5)*14).toFixed(1)+'px');
+        d.style.setProperty('--dy',(34+Math.random()*34).toFixed(0)+'px');
+        d.style.width=(5+Math.random()*5).toFixed(1)+'px';
+        document.body.appendChild(d);
+        setTimeout(function(){ d.remove(); },1000);
+      }
+      function point(e){ var t=(e.touches&&e.touches[0])||(e.changedTouches&&e.changedTouches[0]); if(t){ tx=t.clientX; ty=t.clientY; } }
+      function show(e){
+        point(e); clearTimeout(hideT);
+        if(!loop){ loop=true; gx=tx; gy=ty-OFFSET; frame(); }
+        active=true; cur.classList.add('on'); cg.classList.add('on');
+      }
+      function hide(){ clearTimeout(hideT); hideT=setTimeout(function(){ active=false; cur.classList.remove('on'); cg.classList.remove('on'); },450); }
+      addEventListener('touchstart',show,{passive:true});
+      addEventListener('touchmove',function(e){ point(e); if(!active) show(e); },{passive:true});
+      addEventListener('touchend',hide,{passive:true});
+      addEventListener('touchcancel',hide,{passive:true});
+      if(!reduce){
+        setInterval(function(){
+          if(document.hidden || !active) return;
+          drip(tx+(Math.random()-.5)*12, ty-OFFSET+8);
+        }, 300);
+      }
+    })();
+  }
+
+  /* ---------- background music: always on, no controls ---------- */
+  (function(){
+    if(!S.music) return;
+    var a=new Audio(S.music); a.loop=true; a.preload='auto';
+    a.volume=Math.max(0,Math.min(1,S.musicVolume==null?.35:S.musicVolume));
+    var started=false;
+    var gestureEvs=['pointerdown','mousedown','mouseup','touchstart','touchend','click','keydown'];
+    var softEvs=['pointermove','mousemove','wheel','scroll','touchmove'];   /* tried too, in case the browser allows it */
+    function removeAll(){ gestureEvs.concat(softEvs).forEach(function(e){ removeEventListener(e,tryPlay,true); }); clearInterval(timer); }
+    function tryPlay(){
+      if(started) return;
+      var p=a.play();
+      if(p && p.then){ p.then(function(){ started=true; removeAll(); }).catch(function(){}); }
+    }
+    gestureEvs.concat(softEvs).forEach(function(e){ addEventListener(e,tryPlay,{capture:true,passive:true}); });
+    var timer=setInterval(tryPlay,1500);          /* keeps retrying until the browser lets it play */
+    tryPlay(); a.addEventListener('canplaythrough',tryPlay); addEventListener('load',tryPlay);
+    document.addEventListener('visibilitychange',function(){
+      if(document.hidden){ a.pause(); }
+      else if(started){ a.play().catch(function(){}); }
+    });
+  })();
+
+  /* ---------- contact form ---------- */
+  $('#form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var n=$('#fName').value.trim(), sv=$('#fService').value.trim(), m=$('#fMsg').value.trim(), note=$('#formNote');
+    if(!n || !m){ note.textContent='Please add your name and project details.'; return; }
+    var text='Hello GROW 360,\nName: '+n+(sv?'\nService: '+sv:'')+'\nDetails: '+m;
+    var wa=(S.whatsapp||'').replace(/[^0-9]/g,'');
+    if(wa){ window.open('https://wa.me/'+wa+'?text='+encodeURIComponent(text),'_blank','noopener'); note.textContent='Opening WhatsApp...'; }
+    else if(S.email){ window.open('https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(S.email)+'&su='+encodeURIComponent('New project enquiry')+'&body='+encodeURIComponent(text),'_blank','noopener'); note.textContent='Opening Gmail...'; }
+    else { note.textContent='Contact details will be added soon. Please check back shortly.'; }
+  });
+
+  /* ---------- THREE.js: 3D growth scene ---------- */
+  var box = $('#scene3d');
+  if(typeof THREE === 'undefined' || !box){ var fb=$('.scene-fallback'); if(fb) fb.style.display='grid'; return; }
+  try{
+    var cs = getComputedStyle(document.documentElement);
+    var C1=new THREE.Color(cs.getPropertyValue('--c1').trim()), C2=new THREE.Color(cs.getPropertyValue('--c2').trim()), C3=new THREE.Color(cs.getPropertyValue('--c3').trim());
+    var renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+    box.insertBefore(renderer.domElement, box.firstChild);
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(42,1,.1,100);
+    camera.position.set(0,3.6,10.5); camera.lookAt(0,1.4,0);
+
+    scene.add(new THREE.AmbientLight(0xffffff,.55));
+    var dl = new THREE.DirectionalLight(0xffffff,.9); dl.position.set(4,8,6); scene.add(dl);
+    var p1 = new THREE.PointLight(C1,1.6,30); p1.position.set(-5,3,4); scene.add(p1);
+    var p2 = new THREE.PointLight(C2,1.4,30); p2.position.set(5,2,-3); scene.add(p2);
+
+    var world = new THREE.Group(); scene.add(world);
+
+    /* platform */
+    var base = new THREE.Mesh(new THREE.CylinderGeometry(4.2,4.4,.22,72), new THREE.MeshStandardMaterial({color:0x3a0910,metalness:.6,roughness:.35}));
+    base.position.y=-.11; world.add(base);
+    var rim = new THREE.Mesh(new THREE.TorusGeometry(4.3,.04,16,120), new THREE.MeshBasicMaterial({color:C1}));
+    rim.rotation.x=Math.PI/2; rim.position.y=.01; world.add(rim);
+
+    /* growth bars */
+    var heights=[.8,1.3,1.9,2.6,3.4], bars=[];
+    heights.forEach(function(h,i){
+      var g=new THREE.BoxGeometry(.78,h,.78); g.translate(0,h/2,0);
+      var col=C1.clone().lerp(C2,i/(heights.length-1));
+      var m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:col,metalness:.35,roughness:.28,emissive:col,emissiveIntensity:.18}));
+      m.position.set(-2.2+i*1.1,0,0); m.scale.y=.001; m.userData={i:i}; world.add(m); bars.push(m);
+      var edge=new THREE.LineSegments(new THREE.EdgesGeometry(g),new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.25}));
+      m.add(edge);
+    });
+
+    /* floating wireframe core */
+    var core=new THREE.Mesh(new THREE.IcosahedronGeometry(.85,1),new THREE.MeshBasicMaterial({color:C3,wireframe:true}));
+    core.position.set(1.9,5.1,0); world.add(core);
+    var coreIn=new THREE.Mesh(new THREE.IcosahedronGeometry(.42,0),new THREE.MeshStandardMaterial({color:C3,emissive:C3,emissiveIntensity:.8}));
+    core.add(coreIn);
+
+    /* 360 orbit ring with satellites */
+    var orbit=new THREE.Group(); orbit.position.y=2.2; orbit.rotation.x=1.15; world.add(orbit);
+    var ring=new THREE.Mesh(new THREE.TorusGeometry(4.9,.025,12,160),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.35}));
+    orbit.add(ring);
+    var sats=[];
+    [C1,C2,C3].forEach(function(c,i){
+      var s=new THREE.Mesh(new THREE.SphereGeometry(.2,24,24),new THREE.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:.9}));
+      s.userData={a:i*Math.PI*2/3}; orbit.add(s); sats.push(s);
+    });
+
+    /* particles */
+    var N=420, pos=new Float32Array(N*3);
+    for(var k=0;k<N;k++){ var r=6+Math.random()*7, th=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1);
+      pos[k*3]=r*Math.sin(ph)*Math.cos(th); pos[k*3+1]=r*Math.cos(ph)*.7+2; pos[k*3+2]=r*Math.sin(ph)*Math.sin(th); }
+    var pg=new THREE.BufferGeometry(); pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    var pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0xffffff,size:.045,transparent:true,opacity:.7}));
+    scene.add(pts);
+
+    function resize(){ var w=box.clientWidth,h=box.clientHeight; if(!w||!h) return; renderer.setSize(w,h,false); camera.aspect=w/h; camera.fov=w<420?52:42; camera.updateProjectionMatrix(); }
+    resize(); addEventListener('resize',resize);
+    if('ResizeObserver' in window) new ResizeObserver(resize).observe(box);
+
+    var mx=0,my=0,tx=0,ty=0,drag=false,lastX=0,spin=0;
+    box.addEventListener('pointermove',function(e){ var r=box.getBoundingClientRect(); mx=((e.clientX-r.left)/r.width-.5); my=((e.clientY-r.top)/r.height-.5);
+      if(drag){ spin += (e.clientX-lastX)*.01; lastX=e.clientX; } });
+    box.addEventListener('pointerdown',function(e){ drag=true; lastX=e.clientX; });
+    addEventListener('pointerup',function(){ drag=false; });
+    box.addEventListener('pointerleave',function(){ mx=0; my=0; });
+
+    var visible=true, clock=new THREE.Clock();
+    if('IntersectionObserver' in window) new IntersectionObserver(function(e){ visible=e[0].isIntersecting; }).observe(box);
+
+    function ease(t){ return 1-Math.pow(1-t,3); }
+    function frame(){
+      requestAnimationFrame(frame);
+      if(!visible) return;
+      var t=clock.getElapsedTime();
+      tx+=(mx-tx)*.06; ty+=(my-ty)*.06;
+      world.rotation.y = (reduce?0.5:t*.28) + spin + tx*.9;
+      world.rotation.x = ty*.25;
+      bars.forEach(function(b){
+        var gt=Math.min(Math.max((t-.3-b.userData.i*.22)/1.1,0),1);
+        b.scale.y = Math.max(.001, ease(gt)*(1+Math.sin(t*1.6+b.userData.i)*.035*gt));
+      });
+      core.rotation.x=t*.6; core.rotation.y=t*.8; core.position.y=5.1+Math.sin(t*1.3)*.25;
+      orbit.rotation.z=t*.25;
+      sats.forEach(function(s){ var a=s.userData.a+t*.9; s.position.set(Math.cos(a)*4.9,Math.sin(a)*4.9,0); });
+      pts.rotation.y=t*.02;
+      renderer.render(scene,camera);
+    }
+    frame();
+  }catch(err){ var f=$('.scene-fallback'); if(f) f.style.display='grid'; }
+})();
+</script>
+</body>
+</html>
