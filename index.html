@@ -373,7 +373,7 @@ body.in-service main{display:none}
 .shot figcaption{padding:12px 6px 4px;font-size:.9rem;color:var(--muted);font-weight:600}
 .shot.broken .zoom{min-height:120px;display:grid;place-items:center;color:var(--muted)}
 .shot.broken img{display:none}
-.shot.broken .zoom::after{content:"Image unavailable";font-size:.85rem}
+.shot.broken .zoom::after{content:"Image not found " attr(data-want);font-size:.85rem;padding:8px;text-align:center}
 .info{position:sticky;top:calc(var(--nav-h) + 20px);padding:clamp(24px,3vw,36px);border-radius:var(--radius);background:linear-gradient(160deg,color-mix(in srgb,var(--c1) 20%,var(--bg2)),var(--bg2));border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);box-shadow:0 30px 70px rgba(0,0,0,.5)}
 .info h3{font-size:1.5rem;margin:14px 0 12px}
 .info p{color:var(--muted);margin-bottom:14px}
@@ -385,7 +385,7 @@ body.in-service main{display:none}
 .logo-card .zoom{position:absolute;inset:0;width:100%;height:100%;padding:18px;border:0;background:none;cursor:zoom-in;display:grid;place-items:center}
 .logo-card img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .5s}
 .logo-card:hover img{transform:scale(1.06)}
-.logo-card.broken .zoom::after{content:"Image unavailable";color:#7a5a5e;font-size:.85rem}
+.logo-card.broken .zoom::after{content:"Image not found " attr(data-want);color:#7a5a5e;font-size:.85rem}
 .logo-card.broken img{display:none}
 .masonry{columns:3 260px;column-gap:18px}
 .masonry .shot{break-inside:avoid;margin-bottom:18px;display:block}
@@ -415,6 +415,10 @@ body.in-service main{display:none}
 .copybtn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--text);font:600 .85rem var(--font-body);cursor:pointer;transition:.25s;margin-top:4px}
 .copybtn:hover{border-color:var(--c1);color:var(--c1)}
 .copybtn.done{background:var(--grad);border-color:transparent;color:#fff}
+
+.nofile{display:grid;place-items:center;min-height:220px}
+.nofile video{display:none}
+.nofile::after{content:"Video not found " attr(data-want);color:var(--muted);font-size:.85rem;padding:20px;text-align:center}
 
 /* next / prev */
 .pn-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -1072,17 +1076,17 @@ body.in-service main{display:none}
 
   /* ---------- shared media ---------- */
   var WEB_SHOTS = [
-    {src:M+'web-order-form.webp',       cap:'Order page with live price and delivery summary'},
-    {src:M+'web-tshirt-store.webp',     cap:'Clothing store with a best-seller product grid'},
-    {src:M+'web-restaurant-hero.webp',  cap:'Restaurant website hero section'},
-    {src:M+'web-restaurant-map.webp',   cap:'Restaurant location with a live map'},
-    {src:M+'web-restaurant-cart.webp',  cap:'Online ordering cart for a food business'},
-    {src:M+'web-offer-landing.webp',    cap:'Product landing page with an offer countdown'}
+    {key:'web-order-form',       cap:'Order page with live price and delivery summary'},
+    {key:'web-tshirt-store',     cap:'Clothing store with a best-seller product grid'},
+    {key:'web-restaurant-hero',  cap:'Restaurant website hero section'},
+    {key:'web-restaurant-map',   cap:'Restaurant location with a live map'},
+    {key:'web-restaurant-cart',  cap:'Online ordering cart for a food business'},
+    {key:'web-offer-landing',    cap:'Product landing page with an offer countdown'}
   ];
   var ECOM_SHOTS = [
-    {src:M+'ecom-order-form.webp',      cap:'Order form with delivery area and live total'},
-    {src:M+'ecom-tshirt-store.webp',    cap:'Online clothing store with product cards'},
-    {src:M+'ecom-offer-landing.webp',   cap:'Single-product store page with offer countdown'}
+    {key:'ecom-order-form',      cap:'Order form with delivery area and live total'},
+    {key:'ecom-tshirt-store',    cap:'Online clothing store with product cards'},
+    {key:'ecom-offer-landing',   cap:'Single-product store page with offer countdown'}
   ];
   var LOGOS = [
     'https://res.cloudinary.com/oknbij8b/image/upload/v1794478801/20261112_161725_b1rzla.png',
@@ -1254,7 +1258,8 @@ body.in-service main{display:none}
       '<section class="sp-sec"><h2 class="sp-h reveal">'+p.tilesTitle+'</h2>'+tilesHTML(p.tiles,p.tilesClass)+'</section>';
   }
   function shot(s,i){
-    return '<figure class="shot reveal" data-tilt style="--d:'+((i%2)*.08)+'s"><span class="spot"></span><button class="zoom" type="button" data-zoom="'+s.src+'" data-cap="'+s.cap.replace(/"/g,'&quot;')+'" aria-label="Enlarge: '+s.cap.replace(/"/g,'&quot;')+'"><img src="'+s.src+'" alt="'+s.cap.replace(/"/g,'&quot;')+'" loading="lazy"></button><figcaption>'+s.cap+'</figcaption></figure>';
+    var cap=s.cap.replace(/"/g,'&quot;'), ia=s.key?'data-m="'+s.key+'"':'src="'+s.src+'"';
+    return '<figure class="shot reveal" data-tilt style="--d:'+((i%2)*.08)+'s"><span class="spot"></span><button class="zoom" type="button" data-zoom="'+(s.src||'')+'" data-cap="'+cap+'" aria-label="Enlarge: '+cap+'"><img '+ia+' alt="'+cap+'" loading="lazy"></button><figcaption>'+s.cap+'</figcaption></figure>';
   }
   function galleryPage(p){
     var i=p.info;
@@ -1272,7 +1277,7 @@ body.in-service main{display:none}
   }
   function videoPage(){
     return '<section class="sp-sec"><h2 class="sp-h reveal">Our video work</h2><p class="sp-sub reveal">Short vertical videos made for reels, stories and ads. Press play to watch.</p>'+
-      '<div class="vids">'+VIDEOS.map(function(v,i){return '<figure class="vid reveal" data-tilt style="--d:'+(i*.08)+'s"><div class="phone"><video controls playsinline preload="none" poster="'+M+v.file+'.jpg" src="'+M+v.file+'.mp4"></video></div><figcaption><b>'+v.title+'</b><span>'+v.sub+'</span></figcaption></figure>';}).join('')+'</div></section>';
+      '<div class="vids">'+VIDEOS.map(function(v,i){return '<figure class="vid reveal" data-tilt style="--d:'+(i*.08)+'s"><div class="phone"><video controls playsinline preload="metadata" data-m="'+v.file+'"></video></div><figcaption><b>'+v.title+'</b><span>'+v.sub+'</span></figcaption></figure>';}).join('')+'</div></section>';
   }
   function seoPage(){
     return '<section class="sp-sec"><div class="sp-two"><div class="sp-copy reveal left"><h2>Why SEO &amp; content matters</h2><p>Good content gives people an answer. SEO makes sure they can find it. Together they bring steady, qualified visitors, build trust before the first message and keep working long after a post goes live.</p></div>'+
@@ -1281,7 +1286,7 @@ body.in-service main{display:none}
       '<section class="sp-sec"><h2 class="sp-h reveal">Posts written for search</h2><p class="sp-sub reveal">Each post below pairs a creative with an SEO title, caption, description, keywords and hashtags. Copy the text and publish.</p>'+
       '<div class="posts">'+POSTS.map(function(p,i){
         var media = p.kind==='video'
-          ? '<div class="media"><video controls playsinline preload="none" poster="'+M+p.file+'.jpg" src="'+M+p.file+'.mp4"></video></div>'
+          ? '<div class="media"><video controls playsinline preload="metadata" data-m="'+p.file+'"></video></div>'
           : '<div class="media shot-like"><button class="zoom" type="button" style="display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in" data-zoom="'+p.media+'" data-cap="'+p.alt+'" aria-label="Enlarge: '+p.alt+'"><img src="'+p.media+'" alt="'+p.alt+'" loading="lazy"></button></div>';
         return '<article class="post reveal" data-i="'+i+'" style="--d:'+((i%2)*.1)+'s">'+media+'<dl><div><span class="kind">'+ic(p.kind==='video'?'video':'image')+(p.kind==='video'?'Video post':'Image post')+'</span><dt>SEO title</dt><dd>'+p.title+'</dd></div><div><dt>Caption</dt><dd>'+p.caption+'</dd></div><div><dt>Description</dt><dd>'+p.desc+'</dd></div><div><dt>Keywords</dt><dd>'+p.keys+'</dd></div><div><dt>Hashtags</dt><dd class="tags">'+p.tags+'</dd></div><div><button class="copybtn" type="button" data-copy="'+i+'">'+ic('copy')+'<span>Copy post text</span></button></div></dl></article>';
       }).join('')+'</div></section>'+
@@ -1301,6 +1306,42 @@ body.in-service main{display:none}
     else if(p.type==='video') body=videoPage();
     else if(p.type==='seo') body=seoPage();
     return '<div class="wrap">'+hero(slug,p)+body+tail(slug,p)+'</div>';
+  }
+
+
+  /* ---------- finds your images and videos wherever you uploaded them ----------
+     It looks next to index.html first, then in assets/, images/ and videos/,
+     and it accepts both the new file names and the original file names. */
+  var DIRS=['','assets/','images/','videos/'];
+  var NAMES={
+    'web-order-form':['web-order-form','web_5'], 'web-tshirt-store':['web-tshirt-store','web_6'],
+    'web-restaurant-hero':['web-restaurant-hero','web_7'], 'web-restaurant-map':['web-restaurant-map','web_8'],
+    'web-restaurant-cart':['web-restaurant-cart','web_1'], 'web-offer-landing':['web-offer-landing','web_4'],
+    'ecom-order-form':['ecom-order-form','ecom_2'], 'ecom-tshirt-store':['ecom-tshirt-store','ecom_3'], 'ecom-offer-landing':['ecom-offer-landing','ecom_1'],
+    'realestate-ad-1':['realestate-ad-1','Demo-AD-Video_1_For_Realestate_Agency'],
+    'realestate-ad-2':['realestate-ad-2','Demo-AD-Video_2_For_Realestate_Agency'],
+    'motion-3':['motion-3','1115_1','restaurant-ad'],
+    'motion-4':['motion-4','1117','video-ads-explainer']
+  };
+  function cands(key,exts){ var out=[]; DIRS.forEach(function(d){ (NAMES[key]||[key]).forEach(function(n){ exts.forEach(function(e){ out.push(d+n+'.'+e); }); }); }); return out; }
+  function probe(list,cb){ var i=0; (function t(){ if(i>=list.length){ cb(null); return; } var im=new Image(); im.onload=function(){ cb(im.src); }; im.onerror=t; im.src=list[i++]; })(); }
+  function missing(el,want){
+    var box=el.closest('.shot,.logo-card,.phone,.media'); if(!box) return;
+    box.classList.add(el.tagName==='IMG'?'broken':'nofile');
+    (el.closest('.zoom')||box).setAttribute('data-want',want);
+  }
+  function resolveMedia(root){
+    $$('img[data-m]',root).forEach(function(img){
+      var key=img.getAttribute('data-m'), list=cands(key,['webp','png','jpg','jpeg']), i=0;
+      function next(){ if(i>=list.length){ img.removeEventListener('error',next); missing(img,key+'.webp'); return; } img.src=list[i++]; }
+      img.addEventListener('error',next); next();
+    });
+    $$('video[data-m]',root).forEach(function(v){
+      var key=v.getAttribute('data-m'), list=cands(key,['mp4']), i=0;
+      function next(){ if(i>=list.length){ v.removeEventListener('error',next); missing(v,key+'.mp4'); return; } v.src=list[i++]+'#t=0.1'; }
+      v.addEventListener('error',next); next();
+      probe(cands(key,['jpg','webp','png']),function(u){ if(u) v.setAttribute('poster',u); });
+    });
   }
 
   /* ---------- 3D scenes ---------- */
@@ -1484,7 +1525,7 @@ body.in-service main{display:none}
     view.innerHTML=render(slug);
     window.scrollTo({top:0,behavior:'auto'});
     document.title=PAGES[slug].kicker+' | GROW 360';
-    bindTilt(view); bindReveal(view);
+    resolveMedia(view); bindTilt(view); bindReveal(view);
     var box=$('#spScene',view); if(box) startScene(box,PAGES[slug].scene);
   }
   function hideService(){
@@ -1529,11 +1570,11 @@ body.in-service main{display:none}
   }
   view.addEventListener('click',function(e){
     var z=e.target.closest('[data-zoom]');
-    if(z){ var im=$('img',lb); im.src=z.getAttribute('data-zoom'); im.alt=z.getAttribute('data-cap')||''; $('p',lb).textContent=z.getAttribute('data-cap')||''; lb.hidden=false; return; }
+    if(z){ var im=$('img',lb), inner=$('img',z); im.src=inner?(inner.currentSrc||inner.src):z.getAttribute('data-zoom'); im.alt=z.getAttribute('data-cap')||''; $('p',lb).textContent=z.getAttribute('data-cap')||''; lb.hidden=false; return; }
     var c=e.target.closest('[data-copy]');
     if(c){ var p=POSTS[+c.getAttribute('data-copy')]; copyText(p.title+'\n\n'+p.caption+'\n\n'+p.desc+'\n\nKeywords: '+p.keys+'\n\n'+p.tags,c); }
   });
-  view.addEventListener('error',function(e){ var t=e.target; if(t&&t.tagName==='IMG'){ var f=t.closest('.shot,.logo-card'); if(f) f.classList.add('broken'); } },true);
+  view.addEventListener('error',function(e){ var t=e.target; if(t&&t.tagName==='IMG'&&!t.hasAttribute('data-m')){ var f=t.closest('.shot,.logo-card'); if(f) f.classList.add('broken'); } },true);
   view.addEventListener('play',function(e){ if(e.target.tagName==='VIDEO'){ music('pause'); $$('video',view).forEach(function(v){ if(v!==e.target) v.pause(); }); } },true);
   function maybeResume(){ var any=$$('video',view).some(function(v){ return !v.paused&&!v.ended; }); if(!any) music('resume'); }
   view.addEventListener('pause',function(e){ if(e.target.tagName==='VIDEO') maybeResume(); },true);
